@@ -1,0 +1,23 @@
+name: 'my first workflow'
+
+on: 'workflow_dispatch'
+
+jobs: 
+ 'firstjob':
+    runs-on: 'ubuntu-latest'
+    steps: 
+      - name: 'checkout code'
+        uses: 'actions/checkout@v4'
+
+      - name: 'show system info'
+        run: uname -a
+
+      - name: 'say hello '
+        run: echo 'hello world'
+    
+      - name: 'final step'
+        run: echo 'first workflow completed'
+
+
+
+
