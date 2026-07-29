@@ -1,0 +1,34 @@
+name: 'My third work flow'
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  'hello_world_file_job':
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'checkout into code'
+        uses: actions/checkout@v4
+
+      - name: 'file creation'
+        run: echo "console.log('hello world')" > app.js 
+       
+      - name: 'file upload'
+        uses: actions/upload-artifacts@v4
+        with: 
+          name: 'hello'
+          path: app.js
+
+  'file_read_job':
+    runs-on: 'ubuntu-latest'
+    needs: hello_world_file_job
+    steps:
+      - name: 'checkout code'
+        uses: actions/checkout@v4
+      - name: 'get download artifacts'
+        uses: actions/download-artifacts@v4
+        with: 
+          name: hello
+
+      - name: 'reading the file content'
+        run: cat app.js
