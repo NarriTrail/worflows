@@ -1,0 +1,13 @@
+name: pipe bash
+
+on: 'workflow_dispatch'
+
+jobs:
+  'multi_commands':
+   runs-on: ubuntu-latest
+   steps:
+     - name: 'multi commands with pipe'
+       run: |
+           ls -ltr
+           echo 'hello world'
+           date
