@@ -6,8 +6,13 @@ jobs:
   'multi_commands':
    runs-on: ubuntu-latest
    steps:
+     - name: 'checkout into code'
+       run: actions/checkout@v4
      - name: 'multi commands with pipe'
        run: |
            ls -ltr
            echo 'hello world'
            date
+           pwd
+           cat index.js
+           echo 'job completed'
