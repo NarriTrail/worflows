@@ -37,4 +37,4 @@ jobs:
              cd downloadFiles
              chmod +x bashfile.sh
              cat bashfile.sh
-             bashfile.sh
+              ./bashfile.sh
