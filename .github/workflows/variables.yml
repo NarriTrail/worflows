@@ -1,7 +1,32 @@
 name: 'Reading variables from repository workflow'
-on: 'workflow_dispatch'
+on: 
+    'workflow_dispatch':
+      inputs:
+        username:
+          description: 'select user'
+          type: choice
+          options:
+            - Narri
+            - Kyathi
+            - Mind ra
+
+
 jobs:
+  'validation_job':
+   runs-on: 'ubuntu-latest'
+   steps:
+    - name: "checking the validation"
+      run: |
+           echo "you have selected ${{github.event.inputs.username}}"
+           USERNAME=${{github.event.inputs.username}}
+           echo "validating..."
+           if [ "$USERNAME" != "Narri" ];then
+             echo "::error::Invalid user '$USERNAME'"
+             exit 1
+            fi
+
   'varibales_reading':
+   needs: validation_job
    runs-on: 'ubuntu-latest'
    steps:
     - name: 'checkout to repository'
