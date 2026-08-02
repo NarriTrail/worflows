@@ -1,0 +1,12 @@
+name: 'Reading variables from repository workflow'
+on: 'workflow_dispatch'
+jobs:
+  'varibales_reading':
+   runs-on: 'ubuntu-latest'
+   steps:
+    - name: 'checkout to repository'
+      uses: 'actions/checkout@v4'
+    - name: 'fetching varibles'
+      run: |
+           echo  "my name is ${{vars.NAME}}"
+           echo "I'm a ${{vars.ROLE}}"
