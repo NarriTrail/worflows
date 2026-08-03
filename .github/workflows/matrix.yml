@@ -1,0 +1,13 @@
+name: 'matrix workflow'
+on: 'workflow_dispatch'
+jobs:
+  'checking_with_multi_platforms':
+   runs-on: "${{matrix.os}}"
+   strategy:
+    matrix:
+        os: [ubuntu-latest,windows-latest,macos-latest]
+        node: [20,22]
+   steps:
+      - name: 'checking node versions compatibility'
+        run: |
+            echo "${{matrix.os}} ${{matrix.node}}"
