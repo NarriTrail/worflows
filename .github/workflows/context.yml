@@ -1,0 +1,25 @@
+name: 'Context testing'
+on: 'workflow_dispatch'
+jobs:
+  'show-contexts':
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'show github context'
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github)}}
+        run: echo "$GITHUB_CONTEXT"
+      - name: 'show step context'
+        env: 
+          STEPS_CONTEXT: ${{toJson(steps)}}
+        run: echo "$STEPS_CONTEXT"
+      - name: 'job context'
+        env:
+          JOBS_CONTEXT: ${{toJson(job)}}
+        run: echo "$JOBS_CONTEXT"
+      - name: strategy context
+        env:
+          STATEGY_CONTEXT: ${{toJson(strategy)}}
+        run: echo "$STATEGY_CONTEXT"
+        
+
+
