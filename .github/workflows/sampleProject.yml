@@ -1,0 +1,28 @@
+name: 'sample node js project'
+on: 'workflow_dispatch'
+jobs:
+  'nodejs_setup':
+    runs-on: 'ubuntu-latest'
+    steps:
+       - name: 'getting repository code'
+         uses: actions/checkout@v4
+       - name: 'checking the files'
+         run: |
+            ls -ltr
+            chmod +x index.js
+            cat index.js
+       - name: 'setting up the node js'
+         uses: actions/setup-node@v4
+         with:
+            node-version: 22.22
+            cache: npm
+       - name: 'installing the dependencies'
+         run:  npm i 
+       - name: 'start project'
+         run:  npm run start
+
+
+
+
+
+       
