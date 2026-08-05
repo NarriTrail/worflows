@@ -1,0 +1,15 @@
+name: 'checking lint errors'
+on: 'workflow_dispatch'
+jobs:
+  'linter_check':
+   runs-on: 'ubuntu-latest'
+   steps:
+    - name: 'checkout to code'
+      uses: actions/checkout@v4
+    - name: 'settings up node'
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+    - name: 'running lint'
+      run: npm run lint              
