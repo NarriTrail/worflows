@@ -2,6 +2,7 @@ const js = require("@eslint/js");
 
 module.exports = [
   js.configs.recommended,
+ { ignores: ["eslint.config.js"]},
   {
     rules: {
       // formatting rule so incorrect spacing fails the build too
@@ -9,7 +10,16 @@ module.exports = [
       "quotes": ["error", "double"],
       "semi": ["error", "always"]
     },
-    ignores: ["eslint.config.js"]
+        languageOptions: {
+      globals: {
+        require: "readonly",
+        module: "readonly",
+        console: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly"
+      }
+    },
 
   }
 ];
