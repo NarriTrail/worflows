@@ -7,6 +7,8 @@ function add(a, b) {
   // VIOLATION 2b: missing space before brace
   return a + b;
 }
+const result = add(2, count);
+console.log(result);
 app.get("/", (req, res) => {
   res.send({
     name: "hello world hii",
