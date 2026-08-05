@@ -11,5 +11,7 @@ jobs:
       with:
         node-version: 22
         cache: npm
+    - name: 'installing dependencies'
+      run: npm i
     - name: 'running lint'
-      run: npm run lint              
+      run: npm run lint            
