@@ -42,7 +42,7 @@ jobs:
       - name: deploying the application
         run: |
           echo 'deploymemt is in-process'
-          echo 'hello_world' > deployment.js
+          echo pwd > deployment.js
       - name: uploading the file
         uses: actions/upload-artifact@v4
         with:
@@ -61,5 +61,5 @@ jobs:
           path: downloaded/deployment.js
       - name: "playing with file"
         run: |
-          chmod +x deployment.js
+          chmod +x downloaded/deployment.js
           bash downloaded/deployment.js
