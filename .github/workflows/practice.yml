@@ -16,20 +16,22 @@ jobs:
   "setting_up_the_node":
     runs-on: ubuntu-latest
     steps:
+      - name: "checking out to code"
+        uses: actions/checkout@v4
       - name: "installing node"
         uses: actions/setup-node@v4
         with:
           node-version: 22.22
           cache: npm
       - name: "checking the node version"
-        run: echo node -v
+        run: node -v
   "lint_checking":
     runs-on: ubuntu-latest
     steps:
       - name: checking into code
         uses: actions/checkout@v4
       - name: installing dependancies
-        run: npm i
+        run: npm ci
       - name: running the lint
         run: npm run lint
   "deployement":
@@ -39,8 +41,8 @@ jobs:
         uses: actions/checkout@v4
       - name: deploying the application
         run: |
-          echo 'deploymemt is in-process
-          echo'hello_world' > deployment.js
+          echo 'deploymemt is in-process'
+          echo 'hello_world' > deployment.js
       - name: uploading the file
         uses: actions/upload-artifact@v4
         with:
@@ -56,8 +58,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: hello
-          path: ./deployment.js
+          path: downloaded/deployment.js
       - name: "playing with file"
         run: |
           chmod +x deployment.js
-          deployment.js
+          bash deployment.js
