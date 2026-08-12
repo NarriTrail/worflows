@@ -62,4 +62,4 @@ jobs:
       - name: "playing with file"
         run: |
           chmod +x deployment.js
-          bash deployment.js
+          bash downloaded/deployment.js
