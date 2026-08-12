@@ -1,0 +1,66 @@
+name: practicing the concepts
+on: "workflow_dispatch"
+jobs:
+  "playing_with_commands":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checking out to code"
+        uses: actions/checkout@v4
+      - name: "executing commands"
+        run: |
+          echo 'running commands'
+          pwd
+          ls
+          uname -a
+          date
+  "setting_up_the_node":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "installing node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22
+          cache: npm
+      - name: "checking the node version"
+        run: echo node -v
+  "lint_checking":
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking into code
+        uses: actions/checkout@v4
+      - name: installing dependancies
+        run: npm i
+      - name: running the lint
+        run: npm run lint
+  "test_cases_check":
+    runs-on: ubuntu-latest
+    needs: lint_checking
+    steps:
+      - name: "go to code"
+        uses: actions/checkout@v4
+      - name: running test cases
+        run: npm run test
+  "deployement":
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploying the application
+        run: |
+          echo 'deploymemt is in-process
+          echo'hello_world' > deployment.js
+      - name: uploading the file
+        uses: actions/upload-artifact@v4
+        with:
+          name: "hello"
+          path: ./deployment.js
+  "production_env":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "downloading the artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: hello
+          path: ./deployment.js
+      - name: "playing with file"
+        run: |
+          chmod +x deployment.js
+          deployment.js
