@@ -1,0 +1,62 @@
+name: "react native bare project"
+on: "workflow_dispatch"
+jobs:
+  "project_setup":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "code checkout"
+        uses: actions/checkout@v4
+      - name: go to project
+        run: |
+          echo 'going to project'
+          cd SampleProj
+      - name: "node setup"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22
+          cache: npm
+      - name: "installing dependencies"
+        run: npm ci
+      - name: "running lint"
+        run: npm run lint
+      - name: "checking typescript errors"
+        run: npm run tsc --noEmit
+  "android_env_setup":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "checking out to code"
+        uses: actions/checkout@v4
+      - name: go toproject
+        run: cd SampleProj
+      - name: "java setup"
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: "node setup"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22
+          cache: npm
+      - name: "installing dependencies"
+        run: |
+          npm ci
+          cd android
+          gradlew clean
+          gradlew assembleRelease
+      - name: "exporting the apk"
+        uses: actions/upload-artifact@v4
+        with:
+          name: sampleBuild
+          path: android/app/build/outputs/apk/debug/app-release.apk
+  "downlaod_apk":
+    runs-on: ubuntu-latest
+    steps:
+      - name: "getting the apk"
+        uses: actions/download-artifact@v4
+        with:
+          name: sampleBuild
+          path: ./downloads/app-release.apk
+      - name: "checking the apk"
+        run: ls -ltr ./downloads/app-release.apk
